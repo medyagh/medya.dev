@@ -9,6 +9,13 @@ const topRepos = githubRepos
   .filter(r => r['Repo / Project'])
   .sort((a, b) => (a.Priority || 99) - (b.Priority || 99))
   .slice(0, 10);
+
+function formatCount(n: number | null | undefined): string {
+  if (!n) return '';
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `${Math.round(n / 1_000)}K`;
+  return String(n);
+}
 ---
 
 <Layout title="Projects">
@@ -26,11 +33,18 @@ const topRepos = githubRepos
               <h3>{repo['Repo / Project']}</h3>
               <span class="badge tech">{repo['Primary language'] || 'Multi'}</span>
             </div>
+            {(repo['GitHub downloads'] ?? 0) > 10000 && (
+              <div class="download-badge">
+                <span class="download-icon">⬇</span>
+                <span>{formatCount(repo['GitHub downloads'])} downloads</span>
+              </div>
+            )}
             <p class="meta"><strong>Role:</strong> {repo['Role / relationship']}</p>
             <p class="description">{repo['Impact story / evidence use']}</p>
             <div class="repo-stats">
               {repo.Stars ? <span>⭐ {repo.Stars}</span> : null}
               {repo.Forks ? <span>🍴 {repo.Forks}</span> : null}
+              {repo['Dependent repos'] ? <span>🔗 {formatCount(repo['Dependent repos'])} dependents</span> : null}
             </div>
             <a href={repo.URL} target="_blank" rel="noopener noreferrer" class="link-btn">View Repository ↗</a>
           </div>
@@ -112,6 +126,24 @@ const topRepos = githubRepos
 
   .badge.tech {
     background-color: var(--accent-color);
+  }
+
+  .download-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    align-self: flex-start;
+    margin-bottom: 1rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--accent-color) 0%, #0ea5e9 100%);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .download-icon {
+    font-size: 0.9rem;
   }
 
   .description {
