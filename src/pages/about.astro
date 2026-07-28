@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About">
+  <div class="container about-container">
+    <header class="page-header">
+      <h1 class="text-gradient">About Me</h1>
+    </header>
+
+    <div class="content-grid">
+      <div class="main-content">
+        <section class="about-section glass-panel">
+          <h2>Education & History</h2>
+          <p>
+            I hold a <strong>Masters of Computer Science from DePaul University</strong> in Chicago, where I developed a strong foundation in modern computing architectures and distributed systems. 
+          </p>
+          <p>
+            With over 8.5 years of experience at Google, I have built my career around cloud infrastructure, Kubernetes, and recently, the intersection of AI and cloud-native technologies.
+          </p>
+        </section>
+
+        <section class="about-section glass-panel">
+          <h2>Core Values & Community</h2>
+          <p>
+            My work is deeply rooted in two core values: <strong>Open Source</strong> and <strong>Real Inclusion</strong>. I strongly believe that technology thrives when it is accessible, collaborative, and built by diverse communities. I always care about the diversity of thoughts and languages, and during my time leading projects like minikube, I actively pushed for supporting dozens of languages to make the tool globally accessible.
+          </p>
+          <p>
+            I have a long history of community leadership:
+          </p>
+          <ul class="community-list">
+            <li><strong>President of the DePaul Linux Community:</strong> Fostered open-source education and collaboration during my Master's studies.</li>
+            <li><strong>Leader of the Tehran Ubuntu Community:</strong> Advocated for Linux adoption and open-source principles during my Bachelor's degree.</li>
+          </ul>
+        </section>
+      </div>
+
+      <aside class="sidebar">
+        <div class="glass-panel links-panel">
+          <h3>Connect</h3>
+          <ul class="social-links">
+            <li><a href="https://x.com/medya_dev" target="_blank" rel="noopener noreferrer">Twitter (Personal) ↗</a></li>
+            <li><a href="https://x.com/minikube_dev" target="_blank" rel="noopener noreferrer">Twitter (Minikube) ↗</a></li>
+            <li><a href="https://www.linkedin.com/in/medyagh/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+            <li><a href="https://github.com/kubernetes/minikube" target="_blank" rel="noopener noreferrer">Minikube GitHub ↗</a></li>
+            <li><a href="https://profile.codersrank.io/user/medyagh" target="_blank" rel="noopener noreferrer">CodersRank Profile ↗</a></li>
+          </ul>
+          
+          <div class="resume-download">
+            <a href="/Linkedin_Profile.pdf" target="_blank" class="btn btn-primary w-full">View LinkedIn PDF Resume</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-header {
+    margin-bottom: 3rem;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 900px) {
+    .content-grid {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  .about-section {
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .about-section h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+  }
+
+  .about-section p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .community-list {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+    color: var(--text-secondary);
+  }
+
+  .community-list li {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .community-list strong {
+    color: var(--text-primary);
+  }
+
+  .links-panel {
+    padding: 2rem;
+    position: sticky;
+    top: calc(var(--nav-height) + 2rem);
+  }
+
+  .links-panel h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+  }
+
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .social-links a {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 1.05rem;
+  }
+  
+  .w-full {
+    width: 100%;
+  }
+</style>
