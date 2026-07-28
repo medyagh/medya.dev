@@ -1,18 +1,25 @@
 ---
+import { withBase } from '../utils/paths';
+
+const base = import.meta.env.BASE_URL;
+const normalizedBase = base.endsWith('/') ? base.slice(0, -1) : base;
 const pathname = new URL(Astro.request.url).pathname;
-const currentPath = pathname.slice(1); // remove leading slash
+const relativePath = normalizedBase && pathname.startsWith(normalizedBase)
+  ? pathname.slice(normalizedBase.length)
+  : pathname;
+const currentPath = relativePath.replace(/^\/+/, ''); // remove leading slash(es)
 ---
 
 <nav class="navbar glass-panel">
   <div class="container nav-container">
-    <a href="/" class="logo text-gradient">medya.dev</a>
+    <a href={withBase('/')} class="logo text-gradient">medya.dev</a>
     <ul class="nav-links">
-      <li><a href="/" class={currentPath === "" ? "active" : ""}>Home</a></li>
-      <li><a href="/projects" class={currentPath.startsWith("projects") ? "active" : ""}>Projects</a></li>
-      <li><a href="/achievements" class={currentPath.startsWith("achievements") ? "active" : ""}>Achievements</a></li>
-      <li><a href="/talks" class={currentPath.startsWith("talks") ? "active" : ""}>Talks</a></li>
-      <li><a href="/blog" class={currentPath.startsWith("blog") ? "active" : ""}>Blog</a></li>
-      <li><a href="/about" class={currentPath.startsWith("about") ? "active" : ""}>About</a></li>
+      <li><a href={withBase('/')} class={currentPath === "" ? "active" : ""}>Home</a></li>
+      <li><a href={withBase('/projects')} class={currentPath.startsWith("projects") ? "active" : ""}>Projects</a></li>
+      <li><a href={withBase('/achievements')} class={currentPath.startsWith("achievements") ? "active" : ""}>Achievements</a></li>
+      <li><a href={withBase('/talks')} class={currentPath.startsWith("talks") ? "active" : ""}>Talks</a></li>
+      <li><a href={withBase('/blog')} class={currentPath.startsWith("blog") ? "active" : ""}>Blog</a></li>
+      <li><a href={withBase('/about')} class={currentPath.startsWith("about") ? "active" : ""}>About</a></li>
     </ul>
     <div class="mobile-menu-btn">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>

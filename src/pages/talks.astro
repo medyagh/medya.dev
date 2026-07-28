@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import data from '../data/parsed_excel.json';
+import { withBase } from '../utils/paths';
 
 const conferences = data['Conferences (Speaker)'] || [];
 const publications = data['Publications (Blog,Videos)'] || [];
@@ -21,13 +22,13 @@ const otherTalks = conferences.filter(t => !talksWithVideo.includes(t));
     <section class="cover-section">
       <div class="cover-banner">
         <img
-          src="/talk_pic.jpeg"
+          src={withBase('/talk_pic.jpeg')}
           alt="Medya speaking on stage at a developer conference"
           class="cover-image"
         />
         <div class="cover-gradient"></div>
       </div>
-      <img src="/profile_pic.jpeg" alt="Medya Ghazizadeh" class="cover-avatar" />
+      <img src={withBase('/profile_pic.jpeg')} alt="Medya Ghazizadeh" class="cover-avatar" />
       <div class="cover-text">
         <h1 class="text-gradient">Talks & Media</h1>
         <p class="subtitle">Public speaking, conference presentations, and technical videos.</p>

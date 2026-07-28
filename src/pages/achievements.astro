@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import data from '../data/parsed_excel.json';
+import { withBase } from '../utils/paths';
 
 const externalAwards = data['Awards and Recognitions'] || [];
 const internalAwards = data['(Internal Google) Awards'] || [];
@@ -28,7 +29,7 @@ const internalAwards = data['(Internal Google) Awards'] || [];
             class="cncf-card-thumb-link"
           >
             <img
-              src="/cncf_contributor_card.png"
+              src={withBase('/cncf_contributor_card.png')}
               alt="CNCF Contributor Card for medyagh — 7.5k contributions to 36 repositories over 10 years"
               class="cncf-card-thumb"
             />
@@ -43,8 +44,11 @@ const internalAwards = data['(Internal Google) Awards'] || [];
               <span class="badge">{award.Entity || 'Global'}</span>
             </div>
             <p class="date">{award.Date && String(award.Date).substring(0, 10)}</p>
-            {award.Link && (award.Link.startsWith('http') || award.Link.startsWith('/')) && (
+            {award.Link && award.Link.startsWith('http') && (
               <a href={award.Link} target="_blank" rel="noopener noreferrer" class="link-btn">View Evidence ↗</a>
+            )}
+            {award.Link && award.Link.startsWith('/') && (
+              <a href={withBase(award.Link)} target="_blank" rel="noopener noreferrer" class="link-btn">View Evidence ↗</a>
             )}
           </div>
         ))}

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
+import { withBase } from '../../utils/paths';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft || import.meta.env.DEV);
@@ -20,7 +21,7 @@ function formatDate(date: Date): string {
 
 <Layout title={post.data.title} description={post.data.description}>
   <div class="container article-container">
-    <a href="/blog" class="back-link">← Back to Blog</a>
+    <a href={withBase('/blog')} class="back-link">← Back to Blog</a>
     {post.data.draft && <p class="draft-badge">Draft — not yet published</p>}
     <p class="date">{formatDate(post.data.pubDate)}</p>
     <div class="prose">

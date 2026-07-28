@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
+import { withBase } from '../utils/paths';
 ---
 
 <Layout title="Home">
@@ -36,19 +37,19 @@ import { Image } from 'astro:assets';
         </div>
 
         <ul class="highlight-list">
-          <li><a href="/achievements">First tech lead for Gemini Cloud Assist, plus a Google internal AI hackathon win</a></li>
-          <li><a href="/talks">Talks at a dozen conferences, featured on official Google YouTube channels</a></li>
-          <li><a href="/projects">gopogh and other open-source tools with hundreds of thousands of downloads</a></li>
-          <li><a href="/about">Open-source advocate since college — DePaul Linux Community president</a></li>
+          <li><a href={withBase('/achievements')}>First tech lead for Gemini Cloud Assist, plus a Google internal AI hackathon win</a></li>
+          <li><a href={withBase('/talks')}>Talks at a dozen conferences, featured on official Google YouTube channels</a></li>
+          <li><a href={withBase('/projects')}>gopogh and other open-source tools with hundreds of thousands of downloads</a></li>
+          <li><a href={withBase('/about')}>Open-source advocate since college — DePaul Linux Community president</a></li>
         </ul>
 
         <div class="action-buttons">
-          <a href="/achievements" class="btn btn-primary">View Achievements</a>
-          <a href="/talks" class="btn btn-outline">Watch Talks</a>
+          <a href={withBase('/achievements')} class="btn btn-primary">View Achievements</a>
+          <a href={withBase('/talks')} class="btn btn-outline">Watch Talks</a>
         </div>
       </div>
       <div class="hero-image-wrapper">
-        <img src="/profile_pic.jpeg" alt="Medya Ghazizadeh" class="hero-image" />
+        <img src={withBase('/profile_pic.jpeg')} alt="Medya Ghazizadeh" class="hero-image" />
         <div class="glass-decoration"></div>
       </div>
     </div>

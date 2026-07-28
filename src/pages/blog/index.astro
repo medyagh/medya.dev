@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { withBase } from '../../utils/paths';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -22,7 +23,7 @@ function formatDate(date: Date): string {
     ) : (
       <div class="posts-grid">
         {posts.map((post) => (
-          <a href={`/blog/${post.id}`} class="post-card glass-panel">
+          <a href={withBase(`/blog/${post.id}`)} class="post-card glass-panel">
             <h2>{post.data.title}</h2>
             <p class="date">{formatDate(post.data.pubDate)}</p>
             <p class="description">{post.data.description}</p>

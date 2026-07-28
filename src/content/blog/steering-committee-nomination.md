@@ -15,7 +15,7 @@ I've been a technical lead for engineering teams since 2013, including the last 
 
 My open source path started well before Kubernetes. I was president of the DePaul Linux Community during college, and I never really stopped — that same instinct has carried me through dozens of open source projects since.
 
-I'm honored to have been recognized among Kubernetes' [top all-time contributors at its 10-year anniversary](/achievements), with more than 7,500 contributions — most recently [ranked #4 for 2025](https://insights.linuxfoundation.org/project/k8s/contributors?timeRange=previousYear&start=2025-01-01&end=2025-12-31) and featured on the [official CNCF contributor card](https://contribcard.cncf.io/medyagh).
+I'm honored to have been recognized among Kubernetes' [top all-time contributors at its 10-year anniversary](https://medya.dev/achievements), with more than 7,500 contributions — most recently [ranked #4 for 2025](https://insights.linuxfoundation.org/project/k8s/contributors?timeRange=previousYear&start=2025-01-01&end=2025-12-31) and featured on the [official CNCF contributor card](https://contribcard.cncf.io/medyagh).
 
 Leading minikube also taught me what inclusion means in practice, not just in policy. A few things I pushed for because they mattered to real people, not metrics:
 

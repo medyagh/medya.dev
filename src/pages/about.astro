@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { withBase } from '../utils/paths';
 ---
 
 <Layout title="About">
@@ -47,7 +48,7 @@ import Layout from '../layouts/Layout.astro';
           </ul>
           
           <div class="resume-download">
-            <a href="/Linkedin_Profile.pdf" target="_blank" class="btn btn-primary w-full">View LinkedIn PDF Resume</a>
+            <a href={withBase('/Linkedin_Profile.pdf')} target="_blank" class="btn btn-primary w-full">View LinkedIn PDF Resume</a>
           </div>
         </div>
       </aside>
