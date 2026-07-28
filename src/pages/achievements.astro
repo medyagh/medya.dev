@@ -14,8 +14,28 @@ const internalAwards = data['(Internal Google) Awards'] || [];
     </header>
 
     <section class="achievements-section">
-      <h2>External Awards & Recognition</h2>
+      <h2>Awards and Recognitions</h2>
       <div class="cards-grid">
+        <div class="card glass-panel">
+          <div class="card-header">
+            <h3>CNCF Contributor Card</h3>
+            <span class="badge">CNCF</span>
+          </div>
+          <a
+            href="https://contribcard.cncf.io/medyagh"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="cncf-card-thumb-link"
+          >
+            <img
+              src="/cncf_contributor_card.png"
+              alt="CNCF Contributor Card for medyagh — 7.5k contributions to 36 repositories over 10 years"
+              class="cncf-card-thumb"
+            />
+          </a>
+          <p class="description">7,500+ contributions across 36 CNCF repositories since 2017.</p>
+          <a href="https://contribcard.cncf.io/medyagh" target="_blank" rel="noopener noreferrer" class="link-btn">View Live Card ↗</a>
+        </div>
         {externalAwards.map((award) => (
           <div class="card glass-panel">
             <div class="card-header">
@@ -64,6 +84,27 @@ const internalAwards = data['(Internal Google) Awards'] || [];
 
   .achievements-section {
     margin-bottom: 5rem;
+  }
+
+  .cncf-card-thumb-link {
+    display: block;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform var(--transition-smooth);
+  }
+
+  .cncf-card-thumb-link:hover {
+    transform: translateY(-3px);
+  }
+
+  .cncf-card-thumb {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 10px;
   }
 
   .achievements-section h2 {
