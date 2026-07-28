@@ -118,21 +118,21 @@
       "Link": "https://www.infoworld.com/article/2270295/the-best-open-source-software-of-2021.html"
     },
     {
-      "Name": "Top All time contribotr Kubernetes 10 year anniversary",
+      "Name": "Top All-time Contributor to Kubernetes — 10 Year Anniversary",
       "Entity": "CNCF",
       "Description": null,
       "Date": null,
-      "Link": "KubeCon"
+      "Link": "/top10_all_time_keynotes.png"
     },
     {
-      "Name": "Top 5 All time contribotor to Kuberentes",
+      "Name": "Top 4 All-time Contributor to Kubernetes (2025)",
       "Entity": "CNCF",
       "Description": null,
-      "Date": 2026,
-      "Link": "https://insights.linuxfoundation.org/project/k8s/contributors?timeRange=past365days&start=2025-07-01&end=2026-07-01"
+      "Date": 2025,
+      "Link": "https://insights.linuxfoundation.org/project/k8s/contributors?timeRange=previousYear&start=2025-01-01&end=2025-12-31"
     },
     {
-      "Name": "top contributor and lead maintainer for minikube project",
+      "Name": "Top Contributor & Lead Maintainer — minikube",
       "Entity": "Github",
       "Description": null,
       "Date": "2019-NOW",

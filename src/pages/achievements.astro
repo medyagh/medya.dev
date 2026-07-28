@@ -23,7 +23,7 @@ const internalAwards = data['(Internal Google) Awards'] || [];
               <span class="badge">{award.Entity || 'Global'}</span>
             </div>
             <p class="date">{award.Date && String(award.Date).substring(0, 10)}</p>
-            {award.Link && award.Link.startsWith('http') && (
+            {award.Link && (award.Link.startsWith('http') || award.Link.startsWith('/')) && (
               <a href={award.Link} target="_blank" rel="noopener noreferrer" class="link-btn">View Evidence ↗</a>
             )}
           </div>
