@@ -13,7 +13,7 @@ const currentPath = relativePath.replace(/^\/+/, ''); // remove leading slash(es
 <nav class="navbar glass-panel">
   <div class="container nav-container">
     <a href={withBase('/')} class="logo text-gradient">medya.dev</a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="nav-links">
       <li><a href={withBase('/')} class={currentPath === "" ? "active" : ""}>Home</a></li>
       <li><a href={withBase('/projects')} class={currentPath.startsWith("projects") ? "active" : ""}>Projects</a></li>
       <li><a href={withBase('/achievements')} class={currentPath.startsWith("achievements") ? "active" : ""}>Achievements</a></li>
@@ -21,11 +21,43 @@ const currentPath = relativePath.replace(/^\/+/, ''); // remove leading slash(es
       <li><a href={withBase('/blog')} class={currentPath.startsWith("blog") ? "active" : ""}>Blog</a></li>
       <li><a href={withBase('/about')} class={currentPath.startsWith("about") ? "active" : ""}>About</a></li>
     </ul>
-    <div class="mobile-menu-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    </div>
+    <button
+      type="button"
+      class="mobile-menu-btn"
+      aria-label="Toggle menu"
+      aria-controls="nav-links"
+      aria-expanded="false"
+    >
+      <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
   </div>
 </nav>
+
+<script>
+  function initMobileMenu() {
+    const menuBtn = document.querySelector<HTMLButtonElement>('.mobile-menu-btn');
+    const navLinks = document.querySelector<HTMLElement>('#nav-links');
+    if (!menuBtn || !navLinks) return;
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuBtn.classList.toggle('open', isOpen);
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).tagName === 'A') {
+        navLinks.classList.remove('open');
+        menuBtn.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  initMobileMenu();
+  document.addEventListener('astro:after-swap', initMobileMenu);
+</script>
 
 <style>
   .navbar {
@@ -43,6 +75,7 @@ const currentPath = relativePath.replace(/^\/+/, ''); // remove leading slash(es
   }
 
   .nav-container {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -86,15 +119,69 @@ const currentPath = relativePath.replace(/^\/+/, ''); // remove leading slash(es
 
   .mobile-menu-btn {
     display: none;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    margin: 0;
+    color: var(--text-primary);
     cursor: pointer;
+  }
+
+  .mobile-menu-btn .icon-close {
+    display: none;
+  }
+
+  .mobile-menu-btn.open .icon-menu {
+    display: none;
+  }
+
+  .mobile-menu-btn.open .icon-close {
+    display: block;
   }
 
   @media (max-width: 768px) {
     .nav-links {
-      display: none; /* In a real app, we'd add JS to toggle a mobile menu */
+      display: none;
+      position: absolute;
+      top: calc(100% + 0.75rem);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      padding: 0.5rem;
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
-    .mobile-menu-btn {
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    .nav-links li {
+      width: 100%;
+    }
+
+    .nav-links a {
       display: block;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: rgba(2, 132, 199, 0.08);
+    }
+
+    .nav-links a.active::after {
+      display: none;
+    }
+
+    .mobile-menu-btn {
+      display: flex;
     }
   }
 </style>
