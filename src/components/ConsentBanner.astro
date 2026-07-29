@@ -1,0 +1,119 @@
+---
+---
+
+<div class="consent-banner" id="consent-banner" hidden>
+  <div class="consent-content">
+    <p>
+      This site uses Google Analytics to understand how visitors find and use it. No data is sold or used for advertising.
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Learn more</a>
+    </p>
+    <div class="consent-actions">
+      <button type="button" class="btn btn-outline" id="consent-reject">Decline</button>
+      <button type="button" class="btn btn-primary" id="consent-accept">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateConsent(granted: boolean) {
+    const state = granted ? 'granted' : 'denied';
+    try {
+      localStorage.setItem('cookie-consent', state);
+    } catch (e) {}
+
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push(['consent', 'update', {
+      ad_storage: state,
+      ad_user_data: state,
+      ad_personalization: state,
+      analytics_storage: state,
+    }]);
+  }
+
+  function initConsentBanner() {
+    const banner = document.getElementById('consent-banner') as HTMLElement | null;
+    if (!banner) return;
+
+    let stored: string | null = null;
+    try {
+      stored = localStorage.getItem('cookie-consent');
+    } catch (e) {}
+
+    if (!stored) {
+      banner.hidden = false;
+    }
+
+    document.getElementById('consent-accept')?.addEventListener('click', () => {
+      updateConsent(true);
+      banner.hidden = true;
+    });
+
+    document.getElementById('consent-reject')?.addEventListener('click', () => {
+      updateConsent(false);
+      banner.hidden = true;
+    });
+  }
+
+  initConsentBanner();
+</script>
+
+<style>
+  .consent-banner {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+  }
+
+  .consent-banner[hidden] {
+    display: none;
+  }
+
+  .consent-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    max-width: 640px;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (min-width: 640px) {
+    .consent-content {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .consent-content p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    .consent-content p {
+      text-align: left;
+    }
+  }
+
+  .consent-actions {
+    display: flex;
+    flex-shrink: 0;
+    gap: 0.75rem;
+  }
+
+  .consent-actions .btn {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.9rem;
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
 import { withBase } from '../utils/paths';
 
 interface Props {
@@ -25,8 +26,21 @@ const { title, description = "Medya Ghazizadeh - Technical Lead & Kubernetes Cor
 		<script is:inline type="text/partytown">
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
 
+			// Consent default must run before gtag('config', ...) below. Partytown
+			// proxies localStorage back to the main thread even from inside its
+			// worker, so this stays reliable and — critically — stays in the same
+			// script chain as 'config', guaranteeing the ordering gtag requires.
+			var storedConsent;
+			try { storedConsent = localStorage.getItem('cookie-consent'); } catch (e) {}
+			gtag('consent', 'default', {
+				ad_storage: 'denied',
+				ad_user_data: 'denied',
+				ad_personalization: 'denied',
+				analytics_storage: storedConsent === 'granted' ? 'granted' : 'denied',
+			});
+
+			gtag('js', new Date());
 			gtag('config', 'G-9J245YFKM8');
 		</script>
 	</head>
@@ -35,5 +49,6 @@ const { title, description = "Medya Ghazizadeh - Technical Lead & Kubernetes Cor
 		<main class="page-content">
 			<slot />
 		</main>
+		<ConsentBanner />
 	</body>
 </html>
