@@ -237,8 +237,8 @@
       "Date": "2025-01-14 00:00:00",
       "Award / Recognition": "minikube GCR to AR Migration",
       "Type": "Google Spot Bonus",
-      "Given By": "Federico Bongiovanni",
-      "Their Role": "Skip-level Director",
+      "Given By": "Manager",
+      "Their Role": "Director",
       "What It Recognized": "Leading the migration of all minikube binaries from GCR to Artifact Registry with ~1M monthly active users and 13M yearly downloads at stake; solved internal and external customer networking issues; noted as \"overdue recognition\"",
       "Certificate #": 7555759
     },
@@ -255,8 +255,8 @@
       "Date": "2025-09-13 00:00:00",
       "Award / Recognition": "Kubernetes 1.34 Fixit Winners",
       "Type": "Google Spot Bonus",
-      "Given By": "Federico Bongiovanni",
-      "Their Role": "Skip-level Director",
+      "Given By": "Manager",
+      "Their Role": "Director",
       "What It Recognized": "Team won the largest number of merged PRs for the Kubernetes 1.34 release, announced at the K8s OSS Internal Summit, August 2025",
       "Certificate #": 8247471
     }
