@@ -17,6 +17,38 @@ const internalAwards = data['(Internal Google) Awards'] || [];
     <section class="achievements-section">
       <h2>Awards and Recognitions</h2>
       <div class="cards-grid">
+        <article class="card glass-panel">
+          <div class="card-header">
+            <h3>2026 Contributor Award</h3>
+            <span class="badge">Kubernetes</span>
+          </div>
+          <a
+            href={withBase('/kubernetes-contributor-award-2026-handshake.jpg')}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card-image-link"
+            aria-label="Open full-size photo of Medya receiving the award"
+          >
+            <img
+              src={withBase('/kubernetes-contributor-award-2026-handshake.jpg')}
+              alt="Medya Ghazizadeh receiving the 2026 Kubernetes Contributor Award at the Maintainers Summit"
+              class="card-image"
+              loading="lazy"
+            />
+          </a>
+          <p class="date">KubeCon NA 2026 Maintainers Summit</p>
+          <p class="description">
+            Recognized for more than seven years of leading the Minikube project (SIG Cluster Lifecycle).
+          </p>
+          <a
+            href="https://www.kubernetes.dev/community/awards/2026/#cluster-lifecycle"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link-btn"
+          >
+            View official award listing ↗
+          </a>
+        </article>
         <div class="card glass-panel">
           <div class="card-header">
             <h3>CNCF Contributor Card</h3>
@@ -26,12 +58,12 @@ const internalAwards = data['(Internal Google) Awards'] || [];
             href="https://contribcard.cncf.io/medyagh"
             target="_blank"
             rel="noopener noreferrer"
-            class="cncf-card-thumb-link"
+            class="card-image-link"
           >
             <img
               src={withBase('/cncf_contributor_card.png')}
               alt="CNCF Contributor Card for medyagh — 7.5k contributions to 36 repositories over 10 years"
-              class="cncf-card-thumb"
+              class="card-image"
             />
           </a>
           <p class="description">7,500+ contributions across 36 CNCF repositories since 2017.</p>
@@ -56,7 +88,7 @@ const internalAwards = data['(Internal Google) Awards'] || [];
     </section>
 
     <section class="achievements-section">
-      <h2>Google Awards (Spot Bonuses & Feats of Engineering)</h2>
+      <h2>Google Awards</h2>
       <div class="cards-grid">
         {internalAwards.map((award) => (
           <div class="card glass-panel">
@@ -90,7 +122,7 @@ const internalAwards = data['(Internal Google) Awards'] || [];
     margin-bottom: 5rem;
   }
 
-  .cncf-card-thumb-link {
+  .card-image-link {
     display: block;
     margin-bottom: 1rem;
     border-radius: 10px;
@@ -98,11 +130,11 @@ const internalAwards = data['(Internal Google) Awards'] || [];
     transition: transform var(--transition-smooth);
   }
 
-  .cncf-card-thumb-link:hover {
+  .card-image-link:hover {
     transform: translateY(-3px);
   }
 
-  .cncf-card-thumb {
+  .card-image {
     display: block;
     width: 100%;
     height: 220px;
