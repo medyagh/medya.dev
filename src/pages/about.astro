@@ -3,36 +3,28 @@ import Layout from '../layouts/Layout.astro';
 import { withBase } from '../utils/paths';
 ---
 
-<Layout title="About">
-  <div class="container about-container">
+<Layout title="Contact">
+  <div class="container contact-container">
     <header class="page-header">
-      <h1 class="text-gradient">About Me</h1>
+      <h1 class="text-gradient">Contact</h1>
     </header>
 
     <div class="content-grid">
       <div class="main-content">
-        <section class="about-section glass-panel">
-          <h2>Education & History</h2>
+        <section class="contact-section glass-panel">
           <p>
-            I hold a <strong>Masters of Computer Science from DePaul University</strong> in Chicago, where I developed a strong foundation in modern computing architectures and distributed systems. 
+            Reach out if you'd like to chat about collaboration, opportunities, or anything else.
           </p>
-          <p>
-            With over 8.5 years of experience at Google, I have built my career around cloud infrastructure, Kubernetes, and recently, the intersection of AI and cloud-native technologies.
-          </p>
-        </section>
-
-        <section class="about-section glass-panel">
-          <h2>Core Values & Community</h2>
-          <p>
-            My work is deeply rooted in two core values: <strong>Open Source</strong> and <strong>Real Inclusion</strong>. I strongly believe that technology thrives when it is accessible, collaborative, and built by diverse communities. I always care about the diversity of thoughts and languages, and during my time leading projects like minikube, I actively pushed for supporting dozens of languages to make the tool globally accessible.
-          </p>
-          <p>
-            I have a long history of community leadership:
-          </p>
-          <ul class="community-list">
-            <li><strong>President of the DePaul Linux Community:</strong> Fostered open-source education and collaboration during my Master's studies.</li>
-            <li><strong>Leader of the Tehran Ubuntu Community:</strong> Advocated for Linux adoption and open-source principles during my Bachelor's degree.</li>
-          </ul>
+          
+          <div class="email-contact">
+            <p class="email-label">Send me an email:</p>
+            <div class="email-display" id="emailDisplay">
+              <noscript>
+                <span>Please enable JavaScript to see the email address</span>
+              </noscript>
+            </div>
+            <p class="email-note">💡 Email is obfuscated to prevent spam</p>
+          </div>
         </section>
       </div>
 
@@ -47,14 +39,25 @@ import { withBase } from '../utils/paths';
             <li><a href="https://profile.codersrank.io/user/medyagh" target="_blank" rel="noopener noreferrer">CodersRank Profile ↗</a></li>
           </ul>
           
-          <div class="resume-download">
-            <a href={withBase('/Linkedin_Profile.pdf')} target="_blank" class="btn btn-primary w-full">View LinkedIn PDF Resume</a>
-          </div>
         </div>
       </aside>
     </div>
   </div>
 </Layout>
+
+<script>
+  // Decode and display email to prevent spam bots
+  const email = atob('bWVkeWFAbWVkeWEuZGV2'); // Base64 encoded: medya@medya.dev
+  const emailDisplay = document.getElementById('emailDisplay');
+  
+  if (emailDisplay) {
+    const link = document.createElement('a');
+    link.href = `mailto:${email}`;
+    link.className = 'email-link';
+    link.textContent = email;
+    emailDisplay.appendChild(link);
+  }
+</script>
 
 <style>
   .page-header {
@@ -73,39 +76,59 @@ import { withBase } from '../utils/paths';
     }
   }
 
-  .about-section {
+  .contact-section {
     padding: 2.5rem;
     margin-bottom: 2rem;
   }
 
-  .about-section h2 {
-    color: var(--text-primary);
-    margin-bottom: 1.5rem;
-    font-size: 1.75rem;
-  }
-
-  .about-section p {
+  .contact-section p {
     color: var(--text-secondary);
     font-size: 1.05rem;
     line-height: 1.7;
     margin-bottom: 1.5rem;
   }
 
-  .community-list {
-    margin-top: 1rem;
-    padding-left: 1.5rem;
-    list-style-type: disc;
-    color: var(--text-secondary);
+  .email-contact {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+    border-radius: 12px;
+    border: 1px solid rgba(139, 92, 246, 0.2);
   }
 
-  .community-list li {
-    margin-bottom: 1rem;
-    font-size: 1.05rem;
-    line-height: 1.6;
-  }
-
-  .community-list strong {
+  .email-label {
     color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .email-display {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    margin-bottom: 1rem;
+  }
+
+  .email-link {
+    color: var(--accent-color, #8b5cf6);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    word-break: break-all;
+  }
+
+  .email-link:hover {
+    text-decoration: underline;
+    color: var(--accent-hover, #a78bfa);
+  }
+
+  .email-note {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-style: italic;
   }
 
   .links-panel {
