@@ -12,9 +12,9 @@ function getYoutubeId(url) {
   return match ? match[1] : null;
 }
 
-// Separate talks with videos to embed them
-const talksWithVideo = conferences.filter(t => getYoutubeId(t.Youtube)).slice(0, 4); // Featured ones
-const otherTalks = conferences.filter(t => !talksWithVideo.includes(t));
+// Separate talks with videos or fallback images to feature them
+const featuredTalks = conferences.filter(t => getYoutubeId(t.Youtube) || t.Image).slice(0, 4); // Featured ones
+const otherTalks = conferences.filter(t => !featuredTalks.includes(t));
 ---
 
 <Layout title="Talks & Media">
@@ -38,18 +38,26 @@ const otherTalks = conferences.filter(t => !talksWithVideo.includes(t));
     <section class="media-section">
       <h2>Featured Talks</h2>
       <div class="video-grid">
-        {talksWithVideo.map((talk) => {
+        {featuredTalks.map((talk) => {
           const videoId = getYoutubeId(talk.Youtube);
           return (
             <div class="video-card glass-panel">
               <div class="video-wrapper">
-                <iframe 
-                  src={`https://www.youtube.com/embed/${videoId}`} 
-                  title={talk.Title}
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                  allowfullscreen>
-                </iframe>
+                {videoId ? (
+                  <iframe 
+                    src={`https://www.youtube.com/embed/${videoId}`} 
+                    title={talk.Title}
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                  </iframe>
+                ) : (
+                  <img
+                    src={withBase(talk.Image)}
+                    alt={`${talk.Title} — ${talk.Conference}`}
+                    class="video-placeholder-img"
+                  />
+                )}
               </div>
               <div class="video-info">
                 <h3>{talk.Title}</h3>
@@ -210,13 +218,19 @@ const otherTalks = conferences.filter(t => !talksWithVideo.includes(t));
     background-color: #000;
   }
 
-  .video-wrapper iframe {
+  .video-wrapper iframe,
+  .video-placeholder-img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border-radius: 16px 16px 0 0;
+  }
+
+  .video-placeholder-img {
+    object-fit: cover;
+    display: block;
   }
 
   .video-info {
