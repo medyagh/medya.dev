@@ -6,6 +6,12 @@ import partytown from '@astrojs/partytown';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://medya.dev',
+  redirects: {
+    '/awards': {
+      status: 301,
+      destination: '/achievements',
+    },
+  },
   integrations: [
     partytown({
       config: {
