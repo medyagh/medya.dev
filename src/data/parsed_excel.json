@@ -193,7 +193,7 @@
     {
       "Date": "2020-04-01 00:00:00",
       "Award / Recognition": "VM-Free minikube",
-      "Type": "Google Spot Bonus",
+      "Type": "Google Award",
       "Given By": "Thomas Stromberg",
       "Their Role": "Manager, Container DevEx",
       "What It Recognized": "Landing VM-free minikube after multiple quarters of prototypes and cross-contributor collaboration; met and surpassed goals with an unrivaled feature set",
@@ -202,7 +202,7 @@
     {
       "Date": "2020-08-21 00:00:00",
       "Award / Recognition": "Cloud Code July Chill",
-      "Type": "Google Spot Bonus",
+      "Type": "Google Award",
       "Given By": "Vijay Subramani",
       "Their Role": "Cloud Code leadership",
       "What It Recognized": "Leading the minikube team during Cloud Code's July Chill; triaged and fixed key issues, high-bandwidth collaboration with IDE teams, improved August release quality",
@@ -211,7 +211,7 @@
     {
       "Date": "2020-12-09 00:00:00",
       "Award / Recognition": "Cloud Shell Editor Launch",
-      "Type": "Google Spot Bonus",
+      "Type": "Google Award",
       "Given By": "Aparna Sinha",
       "Their Role": "Director, Product Management",
       "What It Recognized": "Key role in the successful launch of the updated Cloud Shell Editor (ide.cloud.google.com)",
@@ -229,7 +229,7 @@
     {
       "Date": "2023-07-28 00:00:00",
       "Award / Recognition": "Minikube Leadership",
-      "Type": "Google Spot Bonus",
+      "Type": "Google Award",
       "Given By": "Leila Jalali",
       "Their Role": "Manager",
       "What It Recognized": "Leading cross-org platform for Google Bets to move Borg to GCP via minikube; Learn Kubernetes with Google YouTube episodes; shipped minikube-GUI, QEMU driver, faster image builds, multi-node volumes, Gopogh (256K+ downloads), Cloud Spanner emulator addon",
@@ -238,7 +238,7 @@
     {
       "Date": "2024-05-29 00:00:00",
       "Award / Recognition": "Gemini Cloud Assist Launch at Next '24",
-      "Type": "Google Spot Bonus",
+      "Type": "Google Award",
       "Given By": "Keith Ballinger",
       "Their Role": "VP/GM",
       "What It Recognized": "Hard work and focus behind the successful launch of Gemini Cloud Assist at Google Cloud Next 2024",
@@ -247,7 +247,7 @@
     {
       "Date": "2025-01-14 00:00:00",
       "Award / Recognition": "minikube GCR to AR Migration",
-      "Type": "Google Spot Bonus",
+      "Type": "Google Award",
       "Given By": "Manager",
       "Their Role": "Director",
       "What It Recognized": "Leading the migration of all minikube binaries from GCR to Artifact Registry with ~1M monthly active users and 13M yearly downloads at stake; solved internal and external customer networking issues; noted as \"overdue recognition\"",
@@ -256,7 +256,7 @@
     {
       "Date": "2025-05-28 00:00:00",
       "Award / Recognition": "GKE AI 2025 Hackathon",
-      "Type": "Google Spot Bonus",
+      "Type": "Google Award",
       "Given By": "Adam Parco",
       "Their Role": "GKE leadership",
       "What It Recognized": "Participation in the first-ever GKE AI Hackathon; built an AI-driven prototype demo",
@@ -265,7 +265,7 @@
     {
       "Date": "2025-09-13 00:00:00",
       "Award / Recognition": "Kubernetes 1.34 Fixit Winners",
-      "Type": "Google Spot Bonus",
+      "Type": "Google Award",
       "Given By": "Manager",
       "Their Role": "Director",
       "What It Recognized": "Team won the largest number of merged PRs for the Kubernetes 1.34 release, announced at the K8s OSS Internal Summit, August 2025",
