@@ -125,7 +125,8 @@
       "Entity": "InfoWorld",
       "Description": null,
       "Date": "2021-10-18 00:00:00",
-      "Link": "https://www.infoworld.com/article/2270295/the-best-open-source-software-of-2021.html"
+      "Link": "https://www.infoworld.com/article/2270295/the-best-open-source-software-of-2021.html",
+      "Image": "/infoworld-bossie-2021.jpg"
     },
     {
       "Name": "Top All-time Contributor to Kubernetes — 10 Year Anniversary",

@@ -75,6 +75,22 @@ const internalAwards = data['(Internal Google) Awards'] || [];
               <h3>{award.Name}</h3>
               <span class="badge">{award.Entity || 'Global'}</span>
             </div>
+            {award.Image && (
+              <a
+                href={award.Link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="card-image-link"
+                aria-label={`Read about ${award.Name}`}
+              >
+                <img
+                  src={withBase(award.Image)}
+                  alt={`${award.Name} badge`}
+                  class="card-image"
+                  loading="lazy"
+                />
+              </a>
+            )}
             <p class="date">{award.Date && String(award.Date).substring(0, 10)}</p>
             {award.Link && award.Link.startsWith('http') && (
               <a href={award.Link} target="_blank" rel="noopener noreferrer" class="link-btn">View Evidence ↗</a>
