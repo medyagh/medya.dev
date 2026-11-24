@@ -32,17 +32,17 @@ import { withBase } from '../utils/paths';
 
         <div class="bio-section">
           <p>
-            8.5 years experience at Google, including both technical lead and managerial roles.
+            <a href={withBase('/achievements')}>Top 4 Contributor</a> to Kubernetes in 2025, with ~9 years experience at Google in technical lead and managerial roles.
+          </p>
+          <p>
+            Author/Maintainer of multiple popular <a href={withBase('/projects')}>open-source projects</a>, including minikube.
+          </p>
+          <p>
+            Speaker at 13+ internationally recognized <a href={withBase('/talks')}>conferences</a>, and recipient of multiple Google and Open Source <a href={withBase('/achievements')}>awards</a>.
           </p>
         </div>
 
-        <ul class="highlight-list">
-          <li><a href={withBase('/achievements')}>Top Contributor to Kubernetes </a></li>
-          <li><a href={withBase('/achievements')}>9 Google awards including for Gemini & GKE AI</a></li>
-          <li><a href={withBase('/talks')}>Speaker at more than 13 internationally recognized conferences</a></li>
-          <li><a href={withBase('/talks')}>Featured educator on official Google YouTube channels</a></li>
-          <li><a href={withBase('/projects')}>Author of multiple popular of open-source projects</a></li>
-        </ul>
+          
 
         <div class="action-buttons">
           <a href={withBase('/achievements')} class="btn btn-primary">View Achievements</a>
@@ -135,6 +135,25 @@ import { withBase } from '../utils/paths';
     color: var(--text-secondary);
     font-size: 1.05rem;
     line-height: 1.7;
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--accent-color);
+    opacity: 0.95;
+  }
+
+  .bio-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .bio-section a {
+    color: var(--accent-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity var(--transition-smooth);
+  }
+
+  .bio-section a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
   }
 
   .action-buttons {
