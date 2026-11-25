@@ -1,4 +1,7 @@
 ---
+import { achievementCount } from '../data/achievements';
+import { projectCount } from '../data/projects';
+import { talksAndMediaCount } from '../data/talks';
 import { withBase } from '../utils/paths';
 
 const base = import.meta.env.BASE_URL;
@@ -8,16 +11,35 @@ const relativePath = normalizedBase && pathname.startsWith(normalizedBase)
   ? pathname.slice(normalizedBase.length)
   : pathname;
 const currentPath = relativePath.replace(/^\/+/, ''); // remove leading slash(es)
+const countedPages = [
+  { path: 'projects', label: 'Projects', count: projectCount },
+  { path: 'achievements', label: 'Achievements', count: achievementCount },
+  { path: 'talks', label: 'Talks', count: talksAndMediaCount },
+];
 ---
 
 <nav class="navbar glass-panel">
   <div class="container nav-container">
-    <a href={withBase('/')} class="logo text-gradient">medya.dev</a>
+    <a href={withBase('/')} class="logo text-gradient" aria-label="medya.dev home">medya.dev</a>
     <ul class="nav-links" id="nav-links">
-      <li><a href={withBase('/')} class={currentPath === "" ? "active" : ""}>Home</a></li>
-      <li><a href={withBase('/projects')} class={currentPath.startsWith("projects") ? "active" : ""}>Projects</a></li>
-      <li><a href={withBase('/achievements')} class={currentPath.startsWith("achievements") ? "active" : ""}>Achievements</a></li>
-      <li><a href={withBase('/talks')} class={currentPath.startsWith("talks") ? "active" : ""}>Talks</a></li>
+      {countedPages.map(({ path, label, count }) => {
+        const isCurrent = currentPath.replace(/\/+$/, '') === path;
+        const countLabel = `${label}, ${count}`;
+        return (
+          <li>
+            <a
+              href={withBase(path)}
+              class:list={['counted-link', { active: isCurrent }]}
+              aria-current={isCurrent ? 'page' : undefined}
+              aria-label={countLabel}
+              data-count-label={countLabel}
+            >
+              {label}
+              <span class="nav-count" aria-hidden="true">{count}</span>
+            </a>
+          </li>
+        );
+      })}
       <li><a href={withBase('/blog')} class={currentPath.startsWith("blog") ? "active" : ""}>Blog</a></li>
       <li><a href={withBase('/about')} class={currentPath.startsWith("about") ? "active" : ""}>Contact</a></li>
     </ul>
@@ -35,6 +57,42 @@ const currentPath = relativePath.replace(/^\/+/, ''); // remove leading slash(es
 </nav>
 
 <script>
+  const countedLinkSelector = 'a[data-count-label]';
+  const seenPaths = new Set<string>();
+
+  function updateNavCounts({ reset = false, openedLink }: { reset?: boolean; openedLink?: HTMLAnchorElement } = {}) {
+    const currentPath = window.location.pathname.replace(/\/+$/, '');
+
+    for (const link of document.querySelectorAll<HTMLAnchorElement>(countedLinkSelector)) {
+      const path = new URL(link.href).pathname.replace(/\/+$/, '');
+      const storageKey = `medya-nav-seen:${path}`;
+      const opened = path === currentPath || link === openedLink;
+      let seen = opened || (!reset && seenPaths.has(path));
+
+      try {
+        if (opened) {
+          sessionStorage.setItem(storageKey, 'true');
+        } else if (reset) {
+          sessionStorage.removeItem(storageKey);
+        }
+        seen = opened || sessionStorage.getItem(storageKey) === 'true';
+      } catch {
+        // Keep the badge state for this page when session storage is unavailable.
+      }
+
+      if (seen) seenPaths.add(path);
+      else seenPaths.delete(path);
+      link.toggleAttribute('data-unseen', !seen);
+      link.setAttribute('aria-label', `${link.dataset.countLabel}${seen ? ', viewed' : ' to explore'}`);
+    }
+  }
+
+  function markCountedPageOpened(event: MouseEvent) {
+    if (event.button > 1 || !(event.target instanceof Element)) return;
+    const link = event.target.closest<HTMLAnchorElement>(countedLinkSelector);
+    if (link) updateNavCounts({ openedLink: link });
+  }
+
   function initMobileMenu() {
     const menuBtn = document.querySelector<HTMLButtonElement>('.mobile-menu-btn');
     const navLinks = document.querySelector<HTMLElement>('#nav-links');
@@ -47,7 +105,7 @@ const currentPath = relativePath.replace(/^\/+/, ''); // remove leading slash(es
     });
 
     navLinks.addEventListener('click', (event) => {
-      if ((event.target as HTMLElement).tagName === 'A') {
+      if ((event.target as HTMLElement).closest('a')) {
         navLinks.classList.remove('open');
         menuBtn.classList.remove('open');
         menuBtn.setAttribute('aria-expanded', 'false');
@@ -55,8 +113,16 @@ const currentPath = relativePath.replace(/^\/+/, ''); // remove leading slash(es
     });
   }
 
+  const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+  const internalReferrer = document.referrer && new URL(document.referrer).origin === window.location.origin;
+
   initMobileMenu();
+  updateNavCounts({ reset: navigation?.type === 'navigate' && !internalReferrer });
   document.addEventListener('astro:after-swap', initMobileMenu);
+  document.addEventListener('astro:after-swap', () => updateNavCounts());
+  document.addEventListener('click', markCountedPageOpened);
+  document.addEventListener('auxclick', markCountedPageOpened);
+  window.addEventListener('pageshow', () => updateNavCounts());
 </script>
 
 <style>
@@ -104,6 +170,31 @@ const currentPath = relativePath.replace(/^\/+/, ''); // remove leading slash(es
 
   .nav-links a:hover, .nav-links a.active {
     color: var(--text-primary);
+  }
+
+  .nav-count {
+    position: absolute;
+    top: -0.1rem;
+    left: calc(100% + 0.125rem);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.3rem;
+    height: 1.3rem;
+    padding: 0 0.25rem;
+    border-radius: 999px;
+    background: var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .counted-link[data-unseen] .nav-count {
+    background: #b91c1c;
+    color: white;
   }
 
   .nav-links a.active::after {
@@ -169,6 +260,16 @@ const currentPath = relativePath.replace(/^\/+/, ''); // remove leading slash(es
       display: block;
       padding: 0.85rem 1rem;
       border-radius: 10px;
+    }
+
+    .nav-links .counted-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-count {
+      position: static;
     }
 
     .nav-links a:hover,

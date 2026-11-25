@@ -1,14 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import data from '../data/parsed_excel.json';
-
-const githubRepos = data['Github Repos'] || [];
-
-// Sort repos by priority
-const topRepos = githubRepos
-  .filter(r => r['Repo / Project'])
-  .sort((a, b) => (a.Priority || 99) - (b.Priority || 99))
-  .slice(0, 10);
+import { topRepos } from '../data/projects';
 
 function formatCount(n: number | null | undefined): string {
   if (!n) return '';

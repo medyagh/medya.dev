@@ -1,10 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import data from '../data/parsed_excel.json';
+import { conferences, publications } from '../data/talks';
 import { withBase } from '../utils/paths';
-
-const conferences = data['Conferences (Speaker)'] || [];
-const publications = data['Publications (Blog,Videos)'] || [];
 
 function getYoutubeId(url) {
   if (!url || typeof url !== 'string') return null;

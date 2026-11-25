@@ -1,74 +1,47 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import data from '../data/parsed_excel.json';
+import { achievementCount, externalAwards, featuredAchievements, internalAwards } from '../data/achievements';
 import { withBase } from '../utils/paths';
-
-const externalAwards = data['Awards and Recognitions'] || [];
-const internalAwards = data['(Internal Google) Awards'] || [];
 ---
 
 <Layout title="Achievements">
   <div class="container">
     <header class="page-header">
-      <h1 class="text-gradient">Awards & Achievements</h1>
-      <p class="subtitle">Recognition for technical leadership, engineering excellence, and high-impact open source.</p>
+      <h1 class="text-gradient">Achievements</h1>
+      <p class="achievement-count">
+        <strong>{achievementCount}</strong>
+        <span>highlights</span>
+      </p>
     </header>
 
     <section class="achievements-section">
-      <h2>Awards and Recognitions</h2>
+      <h2>Open Source & Industry</h2>
       <div class="cards-grid">
-        <article class="card glass-panel">
-          <div class="card-header">
-            <h3>2026 Contributor Award</h3>
-            <span class="badge">Kubernetes</span>
-          </div>
-          <a
-            href={withBase('/kubernetes-contributor-award-2026-handshake.jpg')}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="card-image-link"
-            aria-label="Open full-size photo of Medya receiving the award"
-          >
-            <img
-              src={withBase('/kubernetes-contributor-award-2026-handshake.jpg')}
-              alt="Medya Ghazizadeh receiving the 2026 Kubernetes Contributor Award at the Maintainers Summit"
-              class="card-image"
-              loading="lazy"
-            />
-          </a>
-          <p class="date">KubeCon NA 2026 Maintainers Summit</p>
-          <p class="description">
-            Recognized for more than seven years of leading the Minikube project (SIG Cluster Lifecycle).
-          </p>
-          <a
-            href="https://www.kubernetes.dev/community/awards/2026/#cluster-lifecycle"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="link-btn"
-          >
-            View official award listing ↗
-          </a>
-        </article>
-        <div class="card glass-panel">
-          <div class="card-header">
-            <h3>CNCF Contributor Card</h3>
-            <span class="badge">CNCF</span>
-          </div>
-          <a
-            href="https://contribcard.cncf.io/medyagh"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="card-image-link"
-          >
-            <img
-              src={withBase('/cncf_contributor_card.png')}
-              alt="CNCF Contributor Card for medyagh — 7.5k contributions to 36 repositories over 10 years"
-              class="card-image"
-            />
-          </a>
-          <p class="description">7,500+ contributions across 36 CNCF repositories since 2017.</p>
-          <a href="https://contribcard.cncf.io/medyagh" target="_blank" rel="noopener noreferrer" class="link-btn">View Live Card ↗</a>
-        </div>
+        {featuredAchievements.map((achievement) => (
+          <article class="card glass-panel">
+            <div class="card-header">
+              <h3>{achievement.title}</h3>
+              <span class="badge">{achievement.organization}</span>
+            </div>
+            <a
+              href={achievement.imageLink ?? withBase(achievement.image)}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="card-image-link"
+              aria-label={achievement.imageLinkLabel}
+            >
+              <img
+                src={withBase(achievement.image)}
+                alt={achievement.imageAlt}
+                class="card-image"
+                loading="lazy"
+              />
+            </a>
+            {achievement.date && <p class="date">{achievement.date}</p>}
+            <p class="description">{achievement.description}</p>
+            <a href={achievement.link} target="_blank" rel="noopener noreferrer" class="link-btn">{achievement.linkLabel} ↗</a>
+          </article>
+        ))}
         {externalAwards.map((award) => (
           <div class="card glass-panel">
             <div class="card-header">
@@ -128,10 +101,22 @@ const internalAwards = data['(Internal Google) Awards'] || [];
     text-align: center;
   }
 
-  .subtitle {
-    font-size: 1.25rem;
+  .achievement-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    font-size: 1.125rem;
     color: var(--text-secondary);
     margin-top: 1rem;
+  }
+
+  .achievement-count strong {
+    font-size: 2.5rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent-color);
   }
 
   .achievements-section {
