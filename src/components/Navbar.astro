@@ -174,8 +174,9 @@ const countedPages = [
 
   .nav-count {
     position: absolute;
-    top: -0.1rem;
+    top: 50%;
     left: calc(100% + 0.125rem);
+    transform: translateY(-50%);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -193,6 +194,8 @@ const countedPages = [
   }
 
   .counted-link[data-unseen] .nav-count {
+    top: -0.1rem;
+    transform: none;
     background: #b91c1c;
     color: white;
   }
@@ -270,6 +273,7 @@ const countedPages = [
 
     .nav-count {
       position: static;
+      transform: none;
     }
 
     .nav-links a:hover,

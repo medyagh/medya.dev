@@ -1,161 +1,340 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { withBase } from '../utils/paths';
+
+const socialLinks = [
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/medyagh/', icon: 'linkedin' },
+  { name: 'Twitter', href: 'https://x.com/medya_dev', icon: 'twitter' },
+  { name: 'GitHub', href: 'https://github.com/medyagh', icon: 'github' },
+];
 ---
 
-<Layout title="Contact">
+<Layout
+  title="Contact"
+  description="Get in touch with Medya Ghazizadeh by email, LinkedIn, Twitter, or GitHub."
+>
   <div class="container contact-container">
-    <header class="page-header">
-      <h1 class="text-gradient">Contact</h1>
-    </header>
-
-    <div class="content-grid">
-      <div class="main-content">
-        <section class="contact-section glass-panel">
-          <p>
-            Reach out if you'd like to chat about collaboration, opportunities, or anything else.
-          </p>
-          
-          <div class="email-contact">
-            <p class="email-label">Send me an email:</p>
-            <div class="email-display" id="emailDisplay">
-              <noscript>
-                <span>Please enable JavaScript to see the email address</span>
-              </noscript>
-            </div>
-            <p class="email-note">💡 Email is obfuscated to prevent spam</p>
-          </div>
-        </section>
+    <section class="email-card" aria-labelledby="email-heading">
+      <div class="profile">
+        <img src={withBase('/profile_pic.jpeg')} alt="" width="48" height="48" class="profile-photo" />
+        <p class="profile-name">Medya Ghazizadeh</p>
       </div>
 
-      <aside class="sidebar">
-        <div class="glass-panel links-panel">
-          <h3>Connect</h3>
-          <ul class="social-links">
-            <li><a href="https://x.com/medya_dev" target="_blank" rel="noopener noreferrer">Twitter (Personal) ↗</a></li>
-            <li><a href="https://x.com/minikube_dev" target="_blank" rel="noopener noreferrer">Twitter (Minikube) ↗</a></li>
-            <li><a href="https://www.linkedin.com/in/medyagh/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
-            <li><a href="https://github.com/kubernetes/minikube" target="_blank" rel="noopener noreferrer">Minikube GitHub ↗</a></li>
-            <li><a href="https://profile.codersrank.io/user/medyagh" target="_blank" rel="noopener noreferrer">CodersRank Profile ↗</a></li>
-          </ul>
-          
+      <div class="email-details">
+        <h1 id="email-heading">Say hello.</h1>
+        <p class="email-description">A great place to start is a simple email.</p>
+        <p class="email-address">
+          <span id="email-fallback">medya [at] medya.dev</span>
+          <a id="email-address" hidden></a>
+        </p>
+        <div class="email-actions" id="email-actions" hidden>
+          <a class="email-button" id="email-button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="3" />
+              <path d="m3 7 9 6 9-6" />
+            </svg>
+            Email me
+          </a>
+          <button class="copy-button" id="copy-email" type="button" aria-label="Copy email address">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="8" y="8" width="12" height="12" rx="2" />
+              <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+            </svg>
+            <span id="copy-label">Copy email</span>
+          </button>
         </div>
-      </aside>
-    </div>
+        <p class="email-feedback" id="email-feedback" role="status" aria-live="polite" aria-atomic="true"></p>
+      </div>
+
+      <nav class="social-nav" aria-label="Social media">
+        <ul class="social-links">
+          {socialLinks.map(({ name, href, icon }) => (
+            <li>
+              <a href={href} target="_blank" rel="noopener noreferrer" class="social-link">
+                {icon === 'linkedin' && (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.45 7.9a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42Zm12.3 10.85H15.8V14.1c0-1.1-.02-2.52-1.54-2.52-1.54 0-1.77 1.2-1.77 2.44v4.73H9.54V9.2h2.83v1.3h.04c.4-.75 1.36-1.54 2.8-1.54 2.99 0 3.54 1.97 3.54 4.53v5.26Z" />
+                  </svg>
+                )}
+                {icon === 'twitter' && (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M23.95 4.57a10 10 0 0 1-2.82.77 4.94 4.94 0 0 0 2.16-2.72 9.99 9.99 0 0 1-3.13 1.2 4.92 4.92 0 0 0-8.38 4.48A13.98 13.98 0 0 1 1.64 3.15a4.92 4.92 0 0 0 1.52 6.57 4.9 4.9 0 0 1-2.23-.62v.06a4.93 4.93 0 0 0 3.95 4.83 4.94 4.94 0 0 1-2.22.08 4.93 4.93 0 0 0 4.6 3.42A9.88 9.88 0 0 1 0 19.53a13.94 13.94 0 0 0 7.55 2.21c9.06 0 14.01-7.5 14.01-14.01 0-.21 0-.42-.02-.63a10 10 0 0 0 2.46-2.55Z" />
+                  </svg>
+                )}
+                {icon === 'github' && (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.58 4.94.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
+                  </svg>
+                )}
+                {name}
+                <span class="sr-only">(opens in a new tab)</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </section>
   </div>
 </Layout>
 
 <script>
-  // Decode and display email to prevent spam bots
-  const email = atob('bWVkeWFAbWVkeWEuZGV2'); // Base64 encoded: medya@medya.dev
-  const emailDisplay = document.getElementById('emailDisplay');
-  
-  if (emailDisplay) {
-    const link = document.createElement('a');
-    link.href = `mailto:${email}`;
-    link.className = 'email-link';
-    link.textContent = email;
-    emailDisplay.appendChild(link);
+  function initContact() {
+    const emailAddress = document.querySelector<HTMLAnchorElement>('#email-address');
+    const emailButton = document.querySelector<HTMLAnchorElement>('#email-button');
+    const emailActions = document.getElementById('email-actions');
+    const emailFallback = document.getElementById('email-fallback');
+    const copyButton = document.querySelector<HTMLButtonElement>('#copy-email');
+    const copyLabel = document.getElementById('copy-label');
+    const feedback = document.getElementById('email-feedback');
+
+    if (!emailAddress || !emailButton || !emailActions || !emailFallback || !copyButton || !copyLabel || !feedback) return;
+    if (emailAddress.dataset.ready) return;
+    emailAddress.dataset.ready = 'true';
+
+    // Preserve the email encoding and provide a readable no-JavaScript fallback.
+    const email = atob('bWVkeWFAbWVkeWEuZGV2');
+    emailAddress.href = `mailto:${email}`;
+    emailAddress.textContent = email;
+    emailButton.href = `mailto:${email}`;
+    emailAddress.hidden = false;
+    emailFallback.hidden = true;
+    emailActions.hidden = false;
+
+    let resetTimer: ReturnType<typeof setTimeout>;
+
+    copyButton.addEventListener('click', async () => {
+      clearTimeout(resetTimer);
+      feedback.textContent = '';
+
+      try {
+        await navigator.clipboard.writeText(email);
+        copyLabel.textContent = 'Copied!';
+        feedback.textContent = 'Email address copied to clipboard.';
+      } catch {
+        // Keep manual copying available when clipboard permission is denied.
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(emailAddress);
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+        copyLabel.textContent = 'Copy email';
+        feedback.textContent = 'Copy unavailable. Select and copy the email address above.';
+        return;
+      }
+
+      resetTimer = setTimeout(() => {
+        copyLabel.textContent = 'Copy email';
+        feedback.textContent = '';
+      }, 4000);
+    });
   }
+
+  initContact();
+  document.addEventListener('astro:page-load', initContact);
 </script>
 
 <style>
-  .page-header {
-    margin-bottom: 3rem;
+  .contact-container {
+    max-width: 600px;
+    padding-top: 1rem;
   }
 
-  .content-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  @media (min-width: 900px) {
-    .content-grid {
-      grid-template-columns: 2fr 1fr;
-    }
-  }
-
-  .contact-section {
+  .email-card {
     padding: 2.5rem;
-    margin-bottom: 2rem;
+    border: 1px solid #243952;
+    border-radius: 24px;
+    background: radial-gradient(ellipse at top right, #183a54, transparent 75%), #101d30;
+    color: #f8fafc;
+    box-shadow: 0 20px 45px -24px #0f172a66;
   }
 
-  .contact-section p {
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid #ffffff24;
   }
 
-  .email-contact {
-    margin-top: 3rem;
-    padding: 2rem;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
-    border-radius: 12px;
-    border: 1px solid rgba(139, 92, 246, 0.2);
+  .profile-photo {
+    flex-shrink: 0;
+    object-fit: cover;
+    border: 2px solid #ffffff33;
+    border-radius: 50%;
   }
 
-  .email-label {
-    color: var(--text-primary);
+  .profile-name {
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
   }
 
-  .email-display {
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
+  .email-details {
+    padding-top: 1.75rem;
+  }
+
+  h1 {
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    letter-spacing: -0.035em;
+  }
+
+  .email-description {
+    color: #b8c9db;
+    font-size: 1rem;
+  }
+
+  .email-address {
+    margin: 1.25rem 0 1.5rem;
+    font-size: clamp(1.25rem, 5vw, 1.75rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    overflow-wrap: anywhere;
+  }
+
+  .email-address a {
+    color: #f8fafc;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
+
+  .email-address a:hover {
+    color: #bae6fd;
+    text-decoration-line: underline;
+  }
+
+  .email-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .email-actions[hidden] {
+    display: none;
+  }
+
+  .email-button,
+  .copy-button,
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+    border: 1px solid transparent;
     border-radius: 8px;
-    border: 1px solid rgba(139, 92, 246, 0.3);
-    margin-bottom: 1rem;
-  }
-
-  .email-link {
-    color: var(--accent-color, #8b5cf6);
-    font-size: 1.25rem;
+    font: inherit;
+    font-size: 1rem;
     font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    word-break: break-all;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
   }
 
-  .email-link:hover {
-    text-decoration: underline;
-    color: var(--accent-hover, #a78bfa);
+  .email-button svg,
+  .copy-button svg,
+  .social-link svg {
+    flex-shrink: 0;
   }
 
-  .email-note {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    font-style: italic;
+  .email-button {
+    flex: 1;
+    background: #e0f2fe;
+    color: #0c4a6e;
   }
 
-  .links-panel {
-    padding: 2rem;
-    position: sticky;
-    top: calc(var(--nav-height) + 2rem);
+  .email-button:hover {
+    background: #ffffff;
+    color: #0c4a6e;
   }
 
-  .links-panel h3 {
-    margin-bottom: 1.5rem;
-    font-size: 1.25rem;
+  .copy-button,
+  .social-link {
+    border-color: #ffffff40;
+    background: transparent;
+    color: #f1f5f9;
+  }
+
+  .copy-button {
+    min-width: 150px;
+  }
+
+  .copy-button:hover,
+  .social-link:hover {
+    border-color: #ffffff80;
+    background: #ffffff0d;
+    color: #ffffff;
+  }
+
+  .email-feedback {
+    min-height: 2.75rem;
+    padding-top: 0.5rem;
+    color: #bae6fd;
+    font-size: 0.875rem;
+  }
+
+  .social-nav {
+    padding-top: 1.5rem;
+    border-top: 1px solid #ffffff24;
   }
 
   .social-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
   }
 
-  .social-links a {
-    display: inline-block;
-    font-weight: 500;
-    font-size: 1.05rem;
-  }
-  
-  .w-full {
+  .social-link {
     width: 100%;
+    min-height: 56px;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 3px solid #7dd3fc;
+    outline-offset: 5px;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 480px) {
+    .contact-container {
+      padding: 0 1.25rem;
+    }
+
+    .email-card {
+      padding: 1.5rem;
+    }
+
+    .email-button,
+    .copy-button {
+      flex: 1 1 100%;
+    }
+
+    .social-link {
+      padding: 0.75rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .social-links {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    a,
+    button {
+      transition: none;
+    }
   }
 </style>
