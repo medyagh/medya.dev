@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
+import { achievementCount } from '../data/achievements';
 import { withBase } from '../utils/paths';
 ---
 
@@ -25,7 +26,7 @@ import { withBase } from '../utils/paths';
             <span class="stat-label">Minikube Downloads</span>
           </div>
           <div class="stat-item">
-            <span class="stat-value">15</span>
+            <span class="stat-value">{achievementCount}</span>
             <span class="stat-label">Awards & Recognitions</span>
           </div>
         </div>
